@@ -23,7 +23,7 @@ Deno.test("section", async (t) => {
           defaultColor: "F",
           defaultBgColor: "0",
           defaultWidth: 1,
-        }
+        },
       );
     });
   });
@@ -40,7 +40,7 @@ Deno.test("section", async (t) => {
         defaultColor: "F",
         defaultBgColor: "0",
         defaultWidth: 1,
-      }
+      },
     );
 
     assertEquals(section.offsetX, 4);
@@ -59,7 +59,7 @@ Deno.test("section", async (t) => {
         defaultColor: "F",
         defaultBgColor: "0",
         defaultWidth: 1,
-      }
+      },
     );
 
     assertEquals(section.offsetX, 0);
@@ -69,7 +69,7 @@ Deno.test("section", async (t) => {
       content: T[][],
       rowCount: number,
       columnCount: number,
-      value: T
+      value: T,
     ) {
       assertEquals(content.length, rowCount);
       for (const row of content) {

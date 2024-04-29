@@ -5,10 +5,11 @@ const printableASCIIRegex = /^[\x20-\x7E]$/;
 
 export function getCharacterWidth(ch: string): number {
   const segments = [...segmenter.segment(ch)];
-  if (segments.length !== 1)
+  if (segments.length !== 1) {
     throw new Error(
-      `Expected exactly one grapheme cluster, got ${segments.length}.`
+      `Expected exactly one grapheme cluster, got ${segments.length}.`,
     );
+  }
 
   const matchesASCII = ch.match(printableASCIIRegex);
   const matchesCJK = ch.match(cjkRegex);

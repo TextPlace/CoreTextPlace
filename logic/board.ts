@@ -16,7 +16,7 @@ export function createBoard(config: BoardConfig): BoardData {
 
 export function locateSection(
   { x, y }: CharacterPosition,
-  config: BoardConfig
+  config: BoardConfig,
 ): SectionPosition {
   return {
     sx: Math.floor(x / config.sectionWidth),

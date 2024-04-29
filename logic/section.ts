@@ -5,27 +5,28 @@ import type { SectionData, SectionPosition } from "../types/section.ts";
 
 export function createSection(
   { sx, sy }: SectionPosition,
-  boardConfig: BoardConfig
+  boardConfig: BoardConfig,
 ): SectionData {
-  if (boardConfig.sectionWidth % 2 !== 0)
+  if (boardConfig.sectionWidth % 2 !== 0) {
     throw new Error(
-      "sectionWidth must be multiple of 2 (least common multiples of all character widths)"
+      "sectionWidth must be multiple of 2 (least common multiples of all character widths)",
     );
+  }
 
   const offsetX = sx * boardConfig.sectionWidth;
   const offsetY = sy * boardConfig.sectionHeight;
 
   const ch: string[][] = Array(boardConfig.sectionHeight).fill(
-    Array(boardConfig.sectionWidth).fill(boardConfig.defaultCh)
+    Array(boardConfig.sectionWidth).fill(boardConfig.defaultCh),
   );
   const color: string[][] = Array(boardConfig.sectionHeight).fill(
-    Array(boardConfig.sectionWidth).fill(boardConfig.defaultColor)
+    Array(boardConfig.sectionWidth).fill(boardConfig.defaultColor),
   );
   const bgColor: string[][] = Array(boardConfig.sectionHeight).fill(
-    Array(boardConfig.sectionWidth).fill(boardConfig.defaultBgColor)
+    Array(boardConfig.sectionWidth).fill(boardConfig.defaultBgColor),
   );
   const width: number[][] = Array(boardConfig.sectionHeight).fill(
-    Array(boardConfig.sectionWidth).fill(boardConfig.defaultWidth)
+    Array(boardConfig.sectionWidth).fill(boardConfig.defaultWidth),
   );
 
   return { offsetX, offsetY, ch, color, bgColor, width };
