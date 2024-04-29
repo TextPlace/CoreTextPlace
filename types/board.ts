@@ -36,6 +36,11 @@ export interface CharacterPosition {
 export interface BoardConfig {
   xSections: number;
   ySections: number;
+  /**
+   * Width of each section, in display characters.
+   *
+   * Note that this must be a multiple of the least common multiple of all possible character display width (returned by `getCharacterWidth`).
+   */
   sectionWidth: number;
   sectionHeight: number;
 

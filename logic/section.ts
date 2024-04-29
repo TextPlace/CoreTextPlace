@@ -7,6 +7,11 @@ export function createSection(
   { sx, sy }: SectionPosition,
   boardConfig: BoardConfig
 ): SectionData {
+  if (boardConfig.sectionWidth % 2 !== 0)
+    throw new Error(
+      "sectionWidth must be multiple of 2 (least common multiples of all character widths)"
+    );
+
   const offsetX = sx * boardConfig.sectionWidth;
   const offsetY = sy * boardConfig.sectionHeight;
 
@@ -32,8 +37,10 @@ export function applyChange(change: BoardChange, section: SectionData) {
 
   if (change.ch) {
     const chWidth = getCharacterWidth(change.ch);
-    section.ch[yInSection][xInSection] = change.ch;
-    section.width[yInSection][xInSection] = chWidth;
+    const xCharacterOffset = xInSection % 2;
+    const offsetAdjustedXInSection = xInSection - xCharacterOffset;
+    section.ch[yInSection][offsetAdjustedXInSection] = change.ch;
+    section.width[yInSection][offsetAdjustedXInSection] = chWidth;
   }
   if (change.color) {
     section.color[yInSection][xInSection] = change.color;
