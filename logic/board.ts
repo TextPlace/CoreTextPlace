@@ -8,9 +8,13 @@ import type {
 import { createSection } from "./section.ts";
 
 export function createBoard(config: BoardConfig): BoardData {
-  const sections: SectionData[][] = Array(config.ySections).map((_, sy) =>
-    Array(config.xSections).map((_, sx) => createSection({ sx, sy }, config))
-  );
+  const sections: SectionData[][] = Array(config.ySections)
+    .fill(0)
+    .map((_, sy) =>
+      Array(config.xSections)
+        .fill(0)
+        .map((_, sx) => createSection({ sx, sy }, config))
+    );
 
   return { config, sections };
 }
