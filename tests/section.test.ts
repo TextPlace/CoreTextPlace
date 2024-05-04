@@ -112,4 +112,12 @@ Deno.test("section", async (t) => {
     assertEquals(section.ch[0][1], " ");
     assertEquals(section.width[0][0], 2);
   });
+
+  await t.step("applyChange incorrect section", () => {
+    assertThrows(() => {
+      assert(section);
+
+      applyChange({ x: 6, y: 3, ch: "あ" }, section);
+    });
+  });
 });

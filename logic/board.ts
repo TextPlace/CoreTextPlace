@@ -5,7 +5,8 @@ import type {
   CharacterPosition,
   FullBoard,
 } from "../types/board.ts";
-import { createSection } from "./section.ts";
+import { applyChange, createSection } from "./section.ts";
+import { BoardChange } from "../types/change.ts";
 
 export function createBoard(config: BoardConfig): BoardData {
   const sections: SectionData[][] = Array(config.ySections)
@@ -27,6 +28,12 @@ export function locateSection(
     sx: Math.floor(x / config.sectionWidth),
     sy: Math.floor(y / config.sectionHeight),
   };
+}
+
+export function applyChangeOnBoard(change: BoardChange, board: BoardData) {
+  const { sx, sy } = locateSection(change, board.config);
+  const section = board.sections[sy][sx];
+  applyChange(change, section);
 }
 
 export function renderFullBoard(data: BoardData): FullBoard {

@@ -5,10 +5,23 @@
 {
   "languages": {
     "TypeScript": {
-      "language_servers": ["deno", "!typescript-language-server", "!eslint"]
+      "language_servers": ["deno", "!typescript-language-server", "!eslint"],
+      "formatter": {
+        "external": {
+          "command": "deno",
+          "arguments": ["fmt", "-"]
+        }
+      }
     },
     "TSX": {
-      "language_servers": ["deno", "!typescript-language-server", "!eslint"]
+      "language_servers": ["deno", "!typescript-language-server", "!eslint"],
+      "formatter": {
+        "external": {
+          "command": "deno",
+          "arguments": ["fmt", "-"]
+        }
+      }
     }
-  }
+  },
+  "format_on_save": "on"
 }

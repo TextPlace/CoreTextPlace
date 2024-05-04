@@ -36,6 +36,12 @@ export function applyChange(change: BoardChange, section: SectionData) {
   const xInSection = change.x - section.offsetX;
   const yInSection = change.y - section.offsetY;
 
+  const validX = xInSection >= 0 && xInSection < section.ch[0].length;
+  const validY = yInSection >= 0 && yInSection < section.ch.length;
+  if (!validX || !validY) {
+    throw new Error("Change does not belong to this section");
+  }
+
   if (change.ch) {
     const chWidth = getCharacterWidth(change.ch);
     const xCharacterOffset = xInSection % 2;
