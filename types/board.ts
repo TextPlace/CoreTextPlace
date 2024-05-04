@@ -1,4 +1,4 @@
-import { SectionData } from "./section.ts";
+import type { SectionData } from "./section.ts";
 
 /**
  * A compact form to represent the whole game board.

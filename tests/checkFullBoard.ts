@@ -1,5 +1,5 @@
 import { getCharacterWidth } from "../logic/character.ts";
-import { FullBoard } from "../types/board.ts";
+import type { FullBoard } from "../types/board.ts";
 
 function isCorrectWidth(cWdRaw: string, cCh: string): boolean {
   return getCharacterWidth(cCh).toString() === cWdRaw;

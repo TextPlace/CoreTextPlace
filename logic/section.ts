@@ -1,6 +1,6 @@
 import { getCharacterWidth } from "../mod.ts";
 import type { BoardConfig } from "../types/board.ts";
-import { BoardChange } from "../types/change.ts";
+import type { BoardChange } from "../types/change.ts";
 import type { SectionData, SectionPosition } from "../types/section.ts";
 
 export function createSection(

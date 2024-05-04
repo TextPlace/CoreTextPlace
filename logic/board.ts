@@ -6,7 +6,7 @@ import type {
   FullBoard,
 } from "../types/board.ts";
 import { applyChange, createSection } from "./section.ts";
-import { BoardChange } from "../types/change.ts";
+import type { BoardChange } from "../types/change.ts";
 
 export function createBoard(config: BoardConfig): BoardData {
   const sections: SectionData[][] = Array(config.ySections)

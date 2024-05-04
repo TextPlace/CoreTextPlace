@@ -4,7 +4,7 @@ import {
 } from "https://deno.land/std@0.224.0/assert/mod.ts";
 
 import { createBoard, renderFullBoard } from "../logic/board.ts";
-import { BoardData } from "../types/board.ts";
+import type { BoardData } from "../types/board.ts";
 import { checkFullBoard } from "./checkFullBoard.ts";
 import { locateSection } from "../logic/board.ts";
 import { applyChangeOnBoard } from "../logic/board.ts";

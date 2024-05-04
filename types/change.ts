@@ -1,4 +1,4 @@
-import { CharacterPosition } from "./board.ts";
+import type { CharacterPosition } from "./board.ts";
 
 /**
  * A change to the board.
