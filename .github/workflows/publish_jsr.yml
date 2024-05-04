@@ -1,8 +1,10 @@
 name: Publish on JSR
 on:
-  push:
+  workflow_run:
+    workflows: ["Deno"]
+    types: [completed]
     branches:
-      - main
+      - "main"
 
 jobs:
   publish:
