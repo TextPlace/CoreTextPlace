@@ -1,5 +1,7 @@
 import { build, emptyDir } from "@deno/dnt";
 
+import denoJson from "../deno.json" with { type: "json" };
+
 await emptyDir("./npm");
 
 await build({
@@ -12,7 +14,7 @@ await build({
   package: {
     // package.json properties
     name: "@textplace/core",
-    version: Deno.args[0],
+    version: denoJson.version,
     description: "The core logic of TextPlace.",
     license: "MIT",
     repository: {
