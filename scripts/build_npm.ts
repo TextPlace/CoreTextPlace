@@ -11,6 +11,9 @@ await build({
     // see JS docs for overview and more options
     deno: true,
   },
+  compilerOptions: {
+    lib: ["ES2022"],
+  },
   package: {
     // package.json properties
     name: "@textplace/core",
