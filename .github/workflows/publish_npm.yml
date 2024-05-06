@@ -14,8 +14,13 @@ jobs:
         uses: denoland/setup-deno@v1.1.4
         with:
           deno-version: v1.x
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          registry-url: "https://registry.npmjs.org"
       - run: deno run -A scripts/build_npm.ts
       - run: cd npm && npm ci
       - run: cd npm && npm publish --provenance --access public
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
