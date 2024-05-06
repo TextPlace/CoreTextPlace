@@ -9,14 +9,9 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
-          registry-url: "https://registry.npmjs.org"
+      - uses: actions/checkout@v4
       - name: Setup Deno
-        # uses: denoland/setup-deno@v1
-        uses: denoland/setup-deno@61fe2df320078202e33d7d5ad347e7dcfa0e8f31 # v1.1.2
+        uses: denoland/setup-deno@v1.1.4
         with:
           deno-version: v1.x
       - run: deno run -A scripts/build_npm.ts

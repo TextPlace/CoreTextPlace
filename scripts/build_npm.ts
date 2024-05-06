@@ -22,10 +22,10 @@ await build({
     license: "MIT",
     repository: {
       type: "git",
-      url: "https://github.com/textplace/CoreTextPlace",
+      url: "https://github.com/TextPlace/CoreTextPlace",
     },
     bugs: {
-      url: "https://github.com/textplace/CoreTextPlace/issues",
+      url: "https://github.com/TextPlace/CoreTextPlace/issues",
     },
   },
   postBuild() {
