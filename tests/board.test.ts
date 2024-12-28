@@ -3,7 +3,11 @@ import {
   assertEquals,
 } from "https://deno.land/std@0.224.0/assert/mod.ts";
 
-import { createBoard, renderFullBoard } from "../logic/board.ts";
+import {
+  createBoard,
+  getSectionOnBoard,
+  renderFullBoard,
+} from "../logic/board.ts";
 import type { BoardData } from "../types/board.ts";
 import { checkFullBoard } from "./checkFullBoard.ts";
 import { locateSection } from "../logic/board.ts";
@@ -14,8 +18,8 @@ Deno.test("board", async (t) => {
 
   await t.step("createBoard", () => {
     board = createBoard({
-      xSections: 2,
-      ySections: 2,
+      xSections: 3,
+      ySections: 3,
       sectionWidth: 4,
       sectionHeight: 3,
       defaultCh: " ",
@@ -24,17 +28,8 @@ Deno.test("board", async (t) => {
       defaultWidth: 1,
     });
 
-    assertEquals(board.sections.length, 2);
-    assertEquals(board.sections[0].length, 2);
-    assertEquals(board.sections[0][0].offsetX, 0);
-    assertEquals(board.sections[0][0].offsetY, 0);
-    assertEquals(board.sections[0][1].offsetX, 4);
-    assertEquals(board.sections[0][1].offsetY, 0);
-    assertEquals(board.sections[1].length, 2);
-    assertEquals(board.sections[1][0].offsetX, 0);
-    assertEquals(board.sections[1][0].offsetY, 3);
-    assertEquals(board.sections[1][1].offsetX, 4);
-    assertEquals(board.sections[1][1].offsetY, 3);
+    // Sections are created on demand.
+    assertEquals(board.sections.length, 0);
   });
 
   await t.step("locateSection", () => {
@@ -73,10 +68,53 @@ Deno.test("board", async (t) => {
     assertEquals(board.sections[1][1].ch[2][0], "嘛");
   });
 
+  await t.step("getSectionOnBoard: existing section", () => {
+    assert(board);
+
+    const section = getSectionOnBoard({ sx: 1, sy: 1 }, board, {
+      readOnly: true,
+    });
+    assertEquals(section.ch[0][0], "嘛");
+    assertEquals(section.color[0][0], "F");
+    assertEquals(section.bgColor[0][0], "0");
+    assertEquals(section.width[0][0], 2);
+  });
+
+  await t.step("getSectionOnBoard: non-existing row", () => {
+    assert(board);
+
+    const section = getSectionOnBoard({ sx: 1, sy: 2 }, board, {
+      readOnly: true,
+    });
+    assertEquals(section.ch[0][0], " ");
+    assertEquals(section.color[0][0], "F");
+    assertEquals(section.bgColor[0][0], "0");
+    assertEquals(section.width[0][0], 1);
+  });
+
+  await t.step("getSectionOnBoard: non-existing section", () => {
+    assert(board);
+
+    const section = getSectionOnBoard({ sx: 2, sy: 1 }, board, {
+      readOnly: true,
+    });
+    assertEquals(section.ch[0][0], " ");
+    assertEquals(section.color[0][0], "F");
+    assertEquals(section.bgColor[0][0], "0");
+    assertEquals(section.width[0][0], 1);
+  });
+
   await t.step("renderFullBoard", () => {
     assert(board);
 
     const rendered = renderFullBoard(board);
     checkFullBoard(rendered);
+  });
+
+  await t.step("on-demand creation: only changed sections are saved", () => {
+    assert(board);
+
+    assertEquals(board.sections.length, 2);
+    assertEquals(board.sections[0].length, 2);
   });
 });

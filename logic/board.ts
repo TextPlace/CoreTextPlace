@@ -9,15 +9,7 @@ import { applyChange, createSection } from "./section.ts";
 import type { BoardChange } from "../types/change.ts";
 
 export function createBoard(config: BoardConfig): BoardData {
-  const sections: SectionData[][] = Array(config.ySections)
-    .fill(0)
-    .map((_, sy) =>
-      Array(config.xSections)
-        .fill(0)
-        .map((_, sx) => createSection({ sx, sy }, config))
-    );
-
-  return { config, sections };
+  return { config, sections: [] };
 }
 
 export function locateSection(
@@ -30,9 +22,38 @@ export function locateSection(
   };
 }
 
+/**
+ * Get a section from board.
+ *
+ * If the section does not exist yet, it will be created and (optionally) added to `board`.
+ */
+export function getSectionOnBoard(
+  { sx, sy }: SectionPosition,
+  board: BoardData,
+  options: {
+    /**
+     * Whether the section data is only used for reading.
+     *
+     * If `true`, this function will return an empty section configured with default values, but will not add it to the board data to save storage.
+     */
+    readOnly: boolean;
+  } = { readOnly: false },
+): SectionData {
+  let section: SectionData;
+  if (!board.sections[sy] && !options.readOnly) board.sections[sy] = [];
+
+  if (!board.sections[sy]?.[sx]) {
+    section = createSection({ sx, sy }, board.config);
+    if (!options.readOnly) board.sections[sy][sx] = section;
+  } else {
+    section = board.sections[sy][sx];
+  }
+  return section;
+}
+
 export function applyChangeOnBoard(change: BoardChange, board: BoardData) {
-  const { sx, sy } = locateSection(change, board.config);
-  const section = board.sections[sy][sx];
+  const sPos = locateSection(change, board.config);
+  const section = getSectionOnBoard(sPos, board);
   applyChange(change, section);
 }
 
@@ -59,8 +80,8 @@ export function renderFullBoard(data: BoardData): FullBoard {
         continue;
       }
 
-      const { sx, sy } = locateSection({ x, y }, data.config);
-      const section = data.sections[sy][sx];
+      const sPos = locateSection({ x, y }, data.config);
+      const section = getSectionOnBoard(sPos, data, { readOnly: true });
       const xInSection = x % data.config.sectionWidth;
       const yInSection = y % data.config.sectionHeight;
 
