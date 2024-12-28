@@ -11,14 +11,14 @@ export interface FullBoard {
   /** The total height of the board, in `ch`. */
   h: number;
 
-  /** Compact string of characters on board. */
-  ch: string;
-  /** Compact string of color, for each character. */
-  color: string;
-  /** Compact string of background color, for each character. */
-  bg_color: string;
-  /** Compact string of width indicator for each character. */
-  width: string;
+  /** Compact array of characters on board. */
+  ch: string[];
+  /** Compact array of color, for each character. */
+  color: string[];
+  /** Compact array of background color, for each character. */
+  bg_color: string[];
+  /** Compact array of width indicator for each character. */
+  width: number[];
 }
 
 /**

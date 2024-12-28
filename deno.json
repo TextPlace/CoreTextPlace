@@ -1,8 +1,8 @@
 {
   "name": "@textplace/core",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "exports": "./mod.ts",
   "imports": {
-    "@deno/dnt": "jsr:@deno/dnt@^0.41.1"
+    "@deno/dnt": "jsr:@deno/dnt@^0.41.3"
   }
 }

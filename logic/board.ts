@@ -40,16 +40,16 @@ export function renderFullBoard(data: BoardData): FullBoard {
   const totalLineCount = data.config.sectionHeight * data.config.ySections;
   const lineLength = data.config.sectionWidth * data.config.xSections;
 
-  const chLines: string[] = Array(totalLineCount);
-  const colorLines: string[] = Array(totalLineCount);
-  const bgColorLines: string[] = Array(totalLineCount);
-  const widthLines: string[] = Array(totalLineCount);
+  const chLines: string[][] = Array(totalLineCount);
+  const colorLines: string[][] = Array(totalLineCount);
+  const bgColorLines: string[][] = Array(totalLineCount);
+  const widthLines: number[][] = Array(totalLineCount);
 
   for (let y = 0; y < totalLineCount; y++) {
-    let chLine = "";
-    let colorLine = "";
-    let bgColorLine = "";
-    let widthLine = "";
+    const chLine: string[] = [];
+    const colorLine: string[] = [];
+    const bgColorLine: string[] = [];
+    const widthLine: number[] = [];
 
     let charsToSkip = 0;
 
@@ -69,10 +69,10 @@ export function renderFullBoard(data: BoardData): FullBoard {
       const cBg = section.bgColor[yInSection][xInSection];
       const cWd = section.width[yInSection][xInSection];
 
-      chLine += cCh;
-      colorLine += cCo;
-      bgColorLine += cBg;
-      widthLine += cWd.toString();
+      chLine.push(cCh);
+      colorLine.push(cCo);
+      bgColorLine.push(cBg);
+      widthLine.push(cWd);
       charsToSkip += cWd - 1;
     }
 
@@ -85,9 +85,9 @@ export function renderFullBoard(data: BoardData): FullBoard {
   return {
     w: lineLength,
     h: totalLineCount,
-    ch: chLines.join("\n"),
-    color: colorLines.join("\n"),
-    bg_color: bgColorLines.join("\n"),
-    width: widthLines.join("\n"),
+    ch: ([] as string[]).concat(...chLines).flat(),
+    color: ([] as string[]).concat(...colorLines).flat(),
+    bg_color: ([] as string[]).concat(...bgColorLines).flat(),
+    width: ([] as number[]).concat(...widthLines).flat(),
   };
 }
