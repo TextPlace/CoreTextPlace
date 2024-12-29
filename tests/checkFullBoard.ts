@@ -47,6 +47,11 @@ export function checkFullBoard(board: FullBoard) {
       console.error("width:   ", widthLine);
     };
 
+    if (typeof cCh !== "string") {
+      printSituation();
+      throw new Error("cCh is not string");
+    }
+
     if (!isValidColor(cCo) || !isValidColor(cBg)) {
       printSituation();
       throw new Error("cCo or cBg is not valid");

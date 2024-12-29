@@ -106,9 +106,9 @@ export function renderFullBoard(data: BoardData): FullBoard {
   return {
     w: lineLength,
     h: totalLineCount,
-    ch: ([] as string[]).concat(...chLines).flat(),
-    color: ([] as string[]).concat(...colorLines).flat(),
-    bg_color: ([] as string[]).concat(...bgColorLines).flat(),
-    width: ([] as number[]).concat(...widthLines).flat(),
+    ch: chLines.flat(),
+    color: colorLines.flat(),
+    bg_color: bgColorLines.flat(),
+    width: widthLines.flat(),
   };
 }

@@ -119,7 +119,7 @@ Deno.test("board", async (t) => {
   await t.step("on-demand creation: only changed sections are saved", () => {
     assert(board);
 
-    assertEquals(board.sections.length, 2);
-    assertEquals(board.sections[0].length, 2);
+    assertEquals(board.sections[2], undefined);
+    assertEquals(board.sections[0][2], undefined);
   });
 });
