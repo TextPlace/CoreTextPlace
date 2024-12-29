@@ -23,7 +23,7 @@ export function createSection(
     Array(boardConfig.sectionWidth).fill(boardConfig.defaultColor)
   );
   const bgColor: string[][] = Array(boardConfig.sectionHeight).fill([]).map(
-    () => Array(boardConfig.sectionWidth).fill(boardConfig.defaultBgColor)
+    () => Array(boardConfig.sectionWidth).fill(boardConfig.defaultBgColor),
   );
   const width: number[][] = Array(boardConfig.sectionHeight).fill([]).map(() =>
     Array(boardConfig.sectionWidth).fill(boardConfig.defaultWidth)
