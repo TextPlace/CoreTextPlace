@@ -16,17 +16,17 @@ export function createSection(
   const offsetX = sx * boardConfig.sectionWidth;
   const offsetY = sy * boardConfig.sectionHeight;
 
-  const ch: string[][] = Array(boardConfig.sectionHeight).fill(
-    Array(boardConfig.sectionWidth).fill(boardConfig.defaultCh),
+  const ch: string[][] = Array(boardConfig.sectionHeight).fill([]).map(() =>
+    Array(boardConfig.sectionWidth).fill(boardConfig.defaultCh)
   );
-  const color: string[][] = Array(boardConfig.sectionHeight).fill(
-    Array(boardConfig.sectionWidth).fill(boardConfig.defaultColor),
+  const color: string[][] = Array(boardConfig.sectionHeight).fill([]).map(() =>
+    Array(boardConfig.sectionWidth).fill(boardConfig.defaultColor)
   );
-  const bgColor: string[][] = Array(boardConfig.sectionHeight).fill(
-    Array(boardConfig.sectionWidth).fill(boardConfig.defaultBgColor),
+  const bgColor: string[][] = Array(boardConfig.sectionHeight).fill([]).map(
+    () => Array(boardConfig.sectionWidth).fill(boardConfig.defaultBgColor)
   );
-  const width: number[][] = Array(boardConfig.sectionHeight).fill(
-    Array(boardConfig.sectionWidth).fill(boardConfig.defaultWidth),
+  const width: number[][] = Array(boardConfig.sectionHeight).fill([]).map(() =>
+    Array(boardConfig.sectionWidth).fill(boardConfig.defaultWidth)
   );
 
   return { offsetX, offsetY, ch, color, bgColor, width };

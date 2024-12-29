@@ -91,6 +91,7 @@ Deno.test("section", async (t) => {
 
     applyChange({ x: 0, y: 0, ch: "t" }, section);
     assertEquals(section.ch[0], ["t", " ", " ", " "]);
+    assertEquals(section.ch[1], [" ", " ", " ", " "]);
     assertEquals(section.width[0], [1, 1, 1, 1]);
   });
 

@@ -56,8 +56,7 @@ Deno.test("board", async (t) => {
     assertEquals(board.sections[0][0].ch[0][0], "A");
     assertEquals(board.sections[0][1].ch[0][0], "B");
     assertEquals(board.sections[1][0].ch[0][0], "C");
-    assertEquals(board.sections[1][1].ch[0][0], "D");
-    assertEquals(board.sections[1][1].ch[0][1], "E");
+    assertEquals(board.sections[1][1].ch[0], ["D", "E", " ", " "]);
 
     applyChangeOnBoard({ x: 0, y: 1, ch: "你" }, board);
     applyChangeOnBoard({ x: 4, y: 2, ch: "好" }, board);
@@ -67,10 +66,10 @@ Deno.test("board", async (t) => {
     assertEquals(board.sections[0][0].ch[1][0], "你");
     assertEquals(board.sections[0][1].ch[2][0], "好");
     assertEquals(board.sections[1][0].ch[1][0], "嗎");
-    assertEquals(board.sections[1][1].ch[2], ["嘛", "E", " ", " "]);
+    assertEquals(board.sections[1][1].ch[1], ["嘛", " ", " ", " "]);
 
     applyChangeOnBoard({ x: 5, y: 4, ch: "啊" }, board);
-    assertEquals(board.sections[1][1].ch[2], ["啊", "E", " ", " "]);
+    assertEquals(board.sections[1][1].ch[1], ["啊", " ", " ", " "]);
   });
 
   await t.step("getSectionOnBoard: existing section", () => {
@@ -79,10 +78,10 @@ Deno.test("board", async (t) => {
     const section = getSectionOnBoard({ sx: 1, sy: 1 }, board, {
       readOnly: true,
     });
-    assertEquals(section.ch[0][0], "啊");
+    assertEquals(section.ch[0], ["D", "E", " ", " "]);
     assertEquals(section.color[0][0], "F");
     assertEquals(section.bgColor[0][0], "0");
-    assertEquals(section.width[0][0], 2);
+    assertEquals(section.width[0], [1, 1, 1, 1]);
   });
 
   await t.step("getSectionOnBoard: non-existing row", () => {
