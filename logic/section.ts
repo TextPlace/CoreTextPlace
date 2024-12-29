@@ -44,7 +44,7 @@ export function applyChange(change: BoardChange, section: SectionData) {
 
   if (change.ch) {
     const chWidth = getCharacterWidth(change.ch);
-    const xCharacterOffset = xInSection % 2;
+    const xCharacterOffset = xInSection % chWidth;
     const offsetAdjustedXInSection = xInSection - xCharacterOffset;
     section.ch[yInSection][offsetAdjustedXInSection] = change.ch;
     section.width[yInSection][offsetAdjustedXInSection] = chWidth;

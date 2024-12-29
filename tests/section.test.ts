@@ -90,27 +90,32 @@ Deno.test("section", async (t) => {
     assert(section);
 
     applyChange({ x: 0, y: 0, ch: "t" }, section);
-    assertEquals(section.ch[0][0], "t");
-    assertEquals(section.ch[0][1], " ");
-    assertEquals(section.width[0][0], 1);
+    assertEquals(section.ch[0], ["t", " ", " ", " "]);
+    assertEquals(section.width[0], [1, 1, 1, 1]);
+  });
+
+  await t.step("applyChange 1-width at odd position", () => {
+    assert(section);
+
+    applyChange({ x: 1, y: 0, ch: "t" }, section);
+    assertEquals(section.ch[0], ["t", "t", " ", " "]);
+    assertEquals(section.width[0], [1, 1, 1, 1]);
   });
 
   await t.step("applyChange 2-width at a correct position", () => {
     assert(section);
 
     applyChange({ x: 0, y: 0, ch: "あ" }, section);
-    assertEquals(section.ch[0][0], "あ");
-    assertEquals(section.ch[0][1], " ");
-    assertEquals(section.width[0][0], 2);
+    assertEquals(section.ch[0], ["あ", "t", " ", " "]);
+    assertEquals(section.width[0], [2, 1, 1, 1]);
   });
 
   await t.step("applyChange 2-width at an alternate position", () => {
     assert(section);
 
     applyChange({ x: 1, y: 0, ch: "あ" }, section);
-    assertEquals(section.ch[0][0], "あ");
-    assertEquals(section.ch[0][1], " ");
-    assertEquals(section.width[0][0], 2);
+    assertEquals(section.ch[0], ["あ", "t", " ", " "]);
+    assertEquals(section.width[0], [2, 1, 1, 1]);
   });
 
   await t.step("applyChange incorrect section", () => {
