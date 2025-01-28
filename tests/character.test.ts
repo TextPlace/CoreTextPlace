@@ -32,6 +32,12 @@ Deno.test("getCharacterWidth CJK", () => {
   assertThrows(() => getCharacterWidth("ヨスガノ"));
 });
 
+Deno.test("getCharacterWidth Emoji", () => {
+  assertEquals(getCharacterWidth("👋"), 2);
+  assertEquals(getCharacterWidth("🌲️"), 2);
+  assertEquals(getCharacterWidth("👨‍👩‍👧‍👦"), 2);
+});
+
 Deno.test("getCharacterWidth previously faulty cases", () => {
   assertEquals(getCharacterWidth("𤲶"), 2);
 });

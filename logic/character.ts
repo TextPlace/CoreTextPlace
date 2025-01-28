@@ -10,5 +10,6 @@ export function getCharacterWidth(ch: string): number {
     );
   }
 
-  return unicodeWidth(ch);
+  // TODO: Properly fix this.
+  return Math.min(unicodeWidth(ch), 2);
 }
