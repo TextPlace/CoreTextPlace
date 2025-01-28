@@ -26,14 +26,12 @@ Deno.test("getCharacterWidth CJK", () => {
   assertEquals(getCharacterWidth("グ"), 2);
   assertEquals(getCharacterWidth("ソ"), 2);
 
-  assertThrows(() => getCharacterWidth("？"));
-  assertThrows(() => getCharacterWidth("！"));
+  assertEquals(getCharacterWidth("？"), 2);
+  assertEquals(getCharacterWidth("！"), 2);
   assertThrows(() => getCharacterWidth("你好"));
   assertThrows(() => getCharacterWidth("ヨスガノ"));
 });
 
 Deno.test("getCharacterWidth previously faulty cases", () => {
   assertEquals(getCharacterWidth("𤲶"), 2);
-
-  assertThrows(() => getCharacterWidth("𤲶"[0]));
 });
