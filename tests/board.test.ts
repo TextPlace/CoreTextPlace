@@ -4,7 +4,7 @@ import {
   createBoard,
   getSectionOnBoard,
   renderFullBoard,
-} from "../logic/board.ts";
+} from "../src/logic/board.ts";
 import type { BoardData } from "../src/types/board.ts";
 import { checkFullBoard } from "./checkFullBoard.ts";
 import { locateSection } from "../src/logic/board.ts";
