@@ -1,5 +1,5 @@
 import { defineBuildConfig } from "obuild/config";
 
 export default defineBuildConfig({
-  entries: ["mod.ts"],
+  entries: ["src/mod.ts"],
 });

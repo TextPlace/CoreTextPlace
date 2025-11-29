@@ -14,10 +14,13 @@ importers:
     devDependencies:
       obuild:
         specifier: ^0.4.3
-        version: 0.4.3
+        version: 0.4.3(typescript@5.9.3)
       prettier:
         specifier: ^3.7.2
         version: 3.7.2
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
       vitest:
         specifier: ^4.0.14
         version: 4.0.14(jiti@2.6.1)
@@ -989,6 +992,11 @@ packages:
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
 
+  typescript@5.9.3:
+    resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   vite@7.2.4:
     resolution: {integrity: sha512-NL8jTlbo0Tn4dUEXEsUg8KeyG/Lkmc4Fnzb8JXN/Ykm9G4HNImjtABMJgkQoVjOBN/j2WAwDTRytdqJbZsah7w==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -1651,7 +1659,7 @@ snapshots:
 
   obug@2.1.1: {}
 
-  obuild@0.4.3:
+  obuild@0.4.3(typescript@5.9.3):
     dependencies:
       c12: 3.3.2
       consola: 3.4.2
@@ -1664,7 +1672,7 @@ snapshots:
       pathe: 2.0.3
       pretty-bytes: 7.1.0
       rolldown: 1.0.0-beta.51
-      rolldown-plugin-dts: 0.18.1(rolldown@1.0.0-beta.51)
+      rolldown-plugin-dts: 0.18.1(rolldown@1.0.0-beta.51)(typescript@5.9.3)
       tinyglobby: 0.2.15
     transitivePeerDependencies:
       - '@ts-macro/tsc'
@@ -1765,7 +1773,7 @@ snapshots:
 
   resolve-pkg-maps@1.0.0: {}
 
-  rolldown-plugin-dts@0.18.1(rolldown@1.0.0-beta.51):
+  rolldown-plugin-dts@0.18.1(rolldown@1.0.0-beta.51)(typescript@5.9.3):
     dependencies:
       '@babel/generator': 7.28.5
       '@babel/parser': 7.28.5
@@ -1777,6 +1785,8 @@ snapshots:
       magic-string: 0.30.21
       obug: 2.1.1
       rolldown: 1.0.0-beta.51
+    optionalDependencies:
+      typescript: 5.9.3
     transitivePeerDependencies:
       - oxc-resolver
 
@@ -1851,6 +1861,8 @@ snapshots:
 
   tslib@2.8.1:
     optional: true
+
+  typescript@5.9.3: {}
 
   vite@7.2.4(jiti@2.6.1):
     dependencies:
