@@ -1,10 +1,6 @@
 [
   {
     "label": "Test",
-    "command": "deno test"
-  },
-  {
-    "label": "Test - Watch",
-    "command": "deno test --watch"
+    "command": "pnpm test"
   }
 ]

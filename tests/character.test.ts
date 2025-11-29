@@ -1,43 +1,40 @@
-import {
-  assertEquals,
-  assertThrows,
-} from "https://deno.land/std@0.224.0/assert/mod.ts";
+import { it, expect } from "vitest";
 
-import { getCharacterWidth } from "../mod.ts";
+import { getCharacterWidth } from "../src/mod.ts";
 
-Deno.test("getCharacterWidth ASCII", () => {
-  assertEquals(getCharacterWidth("a"), 1);
-  assertEquals(getCharacterWidth("A"), 1);
-  assertEquals(getCharacterWidth("1"), 1);
-  assertEquals(getCharacterWidth("@"), 1);
-  assertEquals(getCharacterWidth(" "), 1);
+it("getCharacterWidth ASCII", () => {
+  expect(getCharacterWidth("a")).toBe(1);
+  expect(getCharacterWidth("A")).toBe(1);
+  expect(getCharacterWidth("1")).toBe(1);
+  expect(getCharacterWidth("@")).toBe(1);
+  expect(getCharacterWidth(" ")).toBe(1);
 
-  assertThrows(() => getCharacterWidth(""));
-  assertThrows(() => getCharacterWidth("ab"));
+  expect(() => getCharacterWidth("")).toThrow();
+  expect(() => getCharacterWidth("ab")).toThrow();
 });
 
-Deno.test("getCharacterWidth CJK", () => {
-  assertEquals(getCharacterWidth("你"), 2);
-  assertEquals(getCharacterWidth("好"), 2);
-  assertEquals(getCharacterWidth("吗"), 2);
+it("getCharacterWidth CJK", () => {
+  expect(getCharacterWidth("你")).toBe(2);
+  expect(getCharacterWidth("好")).toBe(2);
+  expect(getCharacterWidth("吗")).toBe(2);
 
-  assertEquals(getCharacterWidth("ガ"), 2);
-  assertEquals(getCharacterWidth("ギ"), 2);
-  assertEquals(getCharacterWidth("グ"), 2);
-  assertEquals(getCharacterWidth("ソ"), 2);
+  expect(getCharacterWidth("ガ")).toBe(2);
+  expect(getCharacterWidth("ギ")).toBe(2);
+  expect(getCharacterWidth("グ")).toBe(2);
+  expect(getCharacterWidth("ソ")).toBe(2);
 
-  assertEquals(getCharacterWidth("？"), 2);
-  assertEquals(getCharacterWidth("！"), 2);
-  assertThrows(() => getCharacterWidth("你好"));
-  assertThrows(() => getCharacterWidth("ヨスガノ"));
+  expect(getCharacterWidth("？")).toBe(2);
+  expect(getCharacterWidth("！")).toBe(2);
+  expect(() => getCharacterWidth("你好")).toThrow();
+  expect(() => getCharacterWidth("ヨスガノ")).toThrow();
 });
 
-Deno.test("getCharacterWidth Emoji", () => {
-  assertEquals(getCharacterWidth("👋"), 2);
-  assertEquals(getCharacterWidth("🌲️"), 2);
-  assertEquals(getCharacterWidth("👨‍👩‍👧‍👦"), 2);
+it("getCharacterWidth Emoji", () => {
+  expect(getCharacterWidth("👋")).toBe(2);
+  expect(getCharacterWidth("🌲️")).toBe(2);
+  expect(getCharacterWidth("👨‍👩‍👧‍👦")).toBe(2);
 });
 
-Deno.test("getCharacterWidth previously faulty cases", () => {
-  assertEquals(getCharacterWidth("𤲶"), 2);
+it("getCharacterWidth previously faulty cases", () => {
+  expect(getCharacterWidth("𤲶")).toBe(2);
 });

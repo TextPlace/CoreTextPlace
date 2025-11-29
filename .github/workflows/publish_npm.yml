@@ -9,18 +9,18 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Deno
-        uses: denoland/setup-deno@v2
+      - uses: pnpm/action-setup@v4
         with:
-          deno-version: v2.x
+          run_install: false
       # Setup .npmrc file to publish to npm
       - uses: actions/setup-node@v4
         with:
-          node-version: "22.x"
+          node-version: "24.x"
+          cache: "pnpm"
           registry-url: "https://registry.npmjs.org"
-      - run: deno run -A scripts/build_npm.ts
-      - run: cd npm && npm ci
-      - run: cd npm && npm publish --provenance --access public
+      - run: pnpm install
+      - run: pnpm build
+      - run: pnpm test
+      - run: pnpm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

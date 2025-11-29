@@ -1,0 +1,34 @@
+{
+  "name": "@textplace/core",
+  "version": "0.5.0",
+  "description": "The core logic of TextPlace.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TextPlace/CoreTextPlace"
+  },
+  "bugs": {
+    "url": "https://github.com/TextPlace/CoreTextPlace/issues"
+  },
+  "scripts": {
+    "test": "vitest",
+    "build": "obuild"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/mod.d.ts",
+      "import": "./dist/mod.mjs"
+    }
+  },
+  "dependencies": {
+    "@std/cli": "jsr:^1.0.24"
+  },
+  "devDependencies": {
+    "obuild": "^0.4.3",
+    "prettier": "^3.7.2",
+    "vitest": "^4.0.14"
+  }
+}

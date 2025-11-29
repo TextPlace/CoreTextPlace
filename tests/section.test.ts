@@ -1,17 +1,13 @@
-import {
-  assert,
-  assertEquals,
-  assertThrows,
-} from "https://deno.land/std@0.224.0/assert/mod.ts";
+import { describe, it, expect } from "vitest";
 
-import { applyChange, createSection } from "../logic/section.ts";
-import type { SectionData } from "../types/section.ts";
+import { applyChange, createSection } from "../src/logic/section.ts";
+import type { SectionData } from "../src/types/section.ts";
 
-Deno.test("section", async (t) => {
+describe("section", () => {
   let section: SectionData | undefined;
 
-  await t.step("createSection non-lcm", () => {
-    assertThrows(() => {
+  it("createSection non-lcm", () => {
+    expect(() => {
       createSection(
         { sx: 0, sy: 0 },
         {
@@ -25,10 +21,10 @@ Deno.test("section", async (t) => {
           defaultWidth: 1,
         },
       );
-    });
+    }).toThrow();
   });
 
-  await t.step("createSection non-origin section", () => {
+  it("createSection non-origin section", () => {
     section = createSection(
       { sx: 1, sy: 1 },
       {
@@ -43,11 +39,11 @@ Deno.test("section", async (t) => {
       },
     );
 
-    assertEquals(section.offsetX, 4);
-    assertEquals(section.offsetY, 3);
+    expect(section.offsetX).toBe(4);
+    expect(section.offsetY).toBe(3);
   });
 
-  await t.step("createSection", () => {
+  it("createSection", () => {
     section = createSection(
       { sx: 0, sy: 0 },
       {
@@ -62,8 +58,8 @@ Deno.test("section", async (t) => {
       },
     );
 
-    assertEquals(section.offsetX, 0);
-    assertEquals(section.offsetY, 0);
+    expect(section.offsetX).toBe(0);
+    expect(section.offsetY).toBe(0);
 
     function assertSectionContent<T>(
       content: T[][],
@@ -71,11 +67,11 @@ Deno.test("section", async (t) => {
       columnCount: number,
       value: T,
     ) {
-      assertEquals(content.length, rowCount);
+      expect(content.length).toBe(rowCount);
       for (const row of content) {
-        assertEquals(row.length, columnCount);
+        expect(row.length).toBe(columnCount);
         for (const item of row) {
-          assertEquals(item, value);
+          expect(item).toBe(value);
         }
       }
     }
@@ -86,44 +82,44 @@ Deno.test("section", async (t) => {
     assertSectionContent(section.width, 3, 4, 1);
   });
 
-  await t.step("applyChange 1-width", () => {
-    assert(section);
+  it("applyChange 1-width", () => {
+    expect(section).toBeDefined();
 
-    applyChange({ x: 0, y: 0, ch: "t" }, section);
-    assertEquals(section.ch[0], ["t", " ", " ", " "]);
-    assertEquals(section.ch[1], [" ", " ", " ", " "]);
-    assertEquals(section.width[0], [1, 1, 1, 1]);
+    applyChange({ x: 0, y: 0, ch: "t" }, section!);
+    expect(section!.ch[0]).toEqual(["t", " ", " ", " "]);
+    expect(section!.ch[1]).toEqual([" ", " ", " ", " "]);
+    expect(section!.width[0]).toEqual([1, 1, 1, 1]);
   });
 
-  await t.step("applyChange 1-width at odd position", () => {
-    assert(section);
+  it("applyChange 1-width at odd position", () => {
+    expect(section).toBeDefined();
 
-    applyChange({ x: 1, y: 0, ch: "t" }, section);
-    assertEquals(section.ch[0], ["t", "t", " ", " "]);
-    assertEquals(section.width[0], [1, 1, 1, 1]);
+    applyChange({ x: 1, y: 0, ch: "t" }, section!);
+    expect(section!.ch[0]).toEqual(["t", "t", " ", " "]);
+    expect(section!.width[0]).toEqual([1, 1, 1, 1]);
   });
 
-  await t.step("applyChange 2-width at a correct position", () => {
-    assert(section);
+  it("applyChange 2-width at a correct position", () => {
+    expect(section).toBeDefined();
 
-    applyChange({ x: 0, y: 0, ch: "あ" }, section);
-    assertEquals(section.ch[0], ["あ", "t", " ", " "]);
-    assertEquals(section.width[0], [2, 1, 1, 1]);
+    applyChange({ x: 0, y: 0, ch: "あ" }, section!);
+    expect(section!.ch[0]).toEqual(["あ", "t", " ", " "]);
+    expect(section!.width[0]).toEqual([2, 1, 1, 1]);
   });
 
-  await t.step("applyChange 2-width at an alternate position", () => {
-    assert(section);
+  it("applyChange 2-width at an alternate position", () => {
+    expect(section).toBeDefined();
 
-    applyChange({ x: 1, y: 0, ch: "あ" }, section);
-    assertEquals(section.ch[0], ["あ", "t", " ", " "]);
-    assertEquals(section.width[0], [2, 1, 1, 1]);
+    applyChange({ x: 1, y: 0, ch: "あ" }, section!);
+    expect(section!.ch[0]).toEqual(["あ", "t", " ", " "]);
+    expect(section!.width[0]).toEqual([2, 1, 1, 1]);
   });
 
-  await t.step("applyChange incorrect section", () => {
-    assertThrows(() => {
-      assert(section);
+  it("applyChange incorrect section", () => {
+    expect(section).toBeDefined();
 
-      applyChange({ x: 6, y: 3, ch: "あ" }, section);
-    });
+    expect(() => {
+      applyChange({ x: 6, y: 3, ch: "あ" }, section!);
+    }).toThrow();
   });
 });
