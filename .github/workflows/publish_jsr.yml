@@ -18,5 +18,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Publish package
-        run: npx jsr publish
+      - name: Setup repo
+        uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24.x"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Publish to JSR
+        run: pnpm dlx jsr publish
