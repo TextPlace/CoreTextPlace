@@ -1,7 +1,0 @@
-{
-  "$schema": "https://jsr.io/schema/config-file.v1.json",
-  "name": "@textplace/core",
-  "version": "0.5.0",
-  "exports": "./src/mod.ts",
-  "include": ["src/**/*.ts", "LICENSE", "README.md"]
-}

@@ -1,5 +1,11 @@
 {
+  "name": "@textplace/core",
+  "version": "0.5.0",
+  "exports": "./src/mod.ts",
   "imports": {
     "@std/cli": "jsr:@std/cli@1"
+  },
+  "publish": {
+    "include": ["src/**/*.ts", "LICENSE", "README.md"]
   }
 }
