@@ -32,5 +32,21 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      # This step removes JSR dependencies from package.json before publishing,
+      # Because apparently now while major npm compatible package managers
+      # support JSR dependencies in package.json, JSR itself does not.
+      - name: Remove JSR deps from package.json
+        run: |
+          node -e "
+          const fs = require('fs');
+          const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
+          for (const dep in pkg.dependencies ?? {}) {
+            if (pkg.dependencies[dep].startsWith('jsr:')) {
+              delete pkg.dependencies[dep];
+            }
+          }
+          fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
+          "
+
       - name: Publish to JSR
         run: pnpm dlx jsr publish
