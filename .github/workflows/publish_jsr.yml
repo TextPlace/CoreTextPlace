@@ -49,4 +49,5 @@ jobs:
           "
 
       - name: Publish to JSR
-        run: pnpm dlx jsr publish
+        # Have to use --allow-dirty because we modified package.json in the previous step
+        run: pnpm dlx jsr publish --allow-dirty
