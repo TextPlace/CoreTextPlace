@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 
-import { applyChange, createSection } from "../src/logic/section.ts";
-import type { SectionData } from "../src/types/section.ts";
+import { applyChange, createSection } from "../src/logic/section";
+import type { SectionData } from "../src/types/section";
 
 describe("section", () => {
   let section: SectionData | undefined;

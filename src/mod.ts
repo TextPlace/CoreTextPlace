@@ -1,7 +1,7 @@
-export * from "./types/board.ts";
-export * from "./types/section.ts";
-export * from "./types/change.ts";
+export * from "./types/board";
+export * from "./types/section";
+export * from "./types/change";
 
-export * from "./logic/board.ts";
-export * from "./logic/section.ts";
-export * from "./logic/character.ts";
+export * from "./logic/board";
+export * from "./logic/section";
+export * from "./logic/character";

@@ -1,30 +1,42 @@
-import { getCharacterWidth } from "../src/logic/character.ts";
-import type { FullBoard } from "../src/types/board.ts";
-
-function isCorrectWidth(cWd: number, cCh: string): boolean {
-  return getCharacterWidth(cCh) === cWd;
-}
+import { getCharacterWidth } from "../src/logic/character";
+import type { BoardRender } from "../src/types/render";
 
 function isValidColor(color: string): boolean {
   return /^[0-9A-F]$/.test(color);
 }
 
-export function checkFullBoard(board: FullBoard) {
+interface Options {
+  /**
+   * Whether to allow the width of a character to be narrower than the "correct" width.
+   *
+   * For partial renders, some wide characters may be clipped to a narrower width. This option allows for that.
+   */
+  allowsNarrowerWidth?: boolean;
+}
+
+export function checkBoardRender(render: BoardRender, options?: Options) {
   let chLine = "";
   let colorLine = "";
   let bgColorLine = "";
   let widthLine = "";
   let lines = 0;
-  const ch = [...board.ch];
+  const ch = [...render.ch];
   const chLength = ch.length;
 
   let unsafeCurrentOffset = 0;
 
+  function isCorrectWidth(cWd: number, cCh: string): boolean {
+    const correctWidth = getCharacterWidth(cCh);
+    return options?.allowsNarrowerWidth
+      ? cWd <= correctWidth && cWd > 0
+      : cWd === correctWidth;
+  }
+
   for (let i = 0; i < chLength; i++) {
     const cCh = ch[i];
-    const cCo = board.color[i];
-    const cBg = board.bg_color[i];
-    const cWd = board.width[i];
+    const cCo = render.color[i];
+    const cBg = render.bg_color[i];
+    const cWd = render.width[i];
 
     const printSituation = () => {
       console.error(
@@ -68,7 +80,7 @@ export function checkFullBoard(board: FullBoard) {
     widthLine += String(cWd).padEnd(cWd);
     unsafeCurrentOffset += cCh.length;
 
-    if (colorLine.length === board.w) {
+    if (colorLine.length === render.w) {
       lines++;
       chLine = "";
       colorLine = "";
@@ -77,5 +89,5 @@ export function checkFullBoard(board: FullBoard) {
     }
   }
 
-  if (lines !== board.h) throw new Error("board height error");
+  if (lines !== render.h) throw new Error("board height error");
 }

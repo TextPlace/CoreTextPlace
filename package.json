@@ -1,8 +1,9 @@
 {
   "name": "@textplace/core",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "The core logic of TextPlace.",
   "license": "MIT",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/TextPlace/CoreTextPlace"
@@ -12,7 +13,8 @@
   },
   "scripts": {
     "test": "vitest",
-    "build": "obuild"
+    "build": "obuild",
+    "typecheck": "tsc --noEmit"
   },
   "files": [
     "dist"

@@ -1,6 +1,6 @@
 import { it, expect } from "vitest";
 
-import { getCharacterWidth } from "../src/mod.ts";
+import { getCharacterWidth } from "../src/mod";
 
 it("getCharacterWidth ASCII", () => {
   expect(getCharacterWidth("a")).toBe(1);

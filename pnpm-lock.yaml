@@ -13,16 +13,16 @@ importers:
         version: '@jsr/std__cli@1.0.24'
     devDependencies:
       obuild:
-        specifier: ^0.4.8
+        specifier: ^0.4.3
         version: 0.4.8(typescript@5.9.3)
       prettier:
-        specifier: ^3.7.4
+        specifier: ^3.7.2
         version: 3.7.4
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
       vitest:
-        specifier: ^4.0.15
+        specifier: ^4.0.14
         version: 4.0.15(jiti@2.6.1)
 
 packages:

@@ -1,7 +1,7 @@
-import { getCharacterWidth } from "../mod.ts";
-import type { BoardConfig } from "../types/board.ts";
-import type { BoardChange } from "../types/change.ts";
-import type { SectionData, SectionPosition } from "../types/section.ts";
+import { getCharacterWidth } from "../mod";
+import type { BoardConfig } from "../types/board";
+import type { BoardChange } from "../types/change";
+import type { SectionData, SectionPosition } from "../types/section";
 
 export function createSection(
   { sx, sy }: SectionPosition,
@@ -16,18 +16,20 @@ export function createSection(
   const offsetX = sx * boardConfig.sectionWidth;
   const offsetY = sy * boardConfig.sectionHeight;
 
-  const ch: string[][] = Array(boardConfig.sectionHeight).fill([]).map(() =>
-    Array(boardConfig.sectionWidth).fill(boardConfig.defaultCh)
-  );
-  const color: string[][] = Array(boardConfig.sectionHeight).fill([]).map(() =>
-    Array(boardConfig.sectionWidth).fill(boardConfig.defaultColor)
-  );
-  const bgColor: string[][] = Array(boardConfig.sectionHeight).fill([]).map(
-    () => Array(boardConfig.sectionWidth).fill(boardConfig.defaultBgColor),
-  );
-  const width: number[][] = Array(boardConfig.sectionHeight).fill([]).map(() =>
-    Array(boardConfig.sectionWidth).fill(boardConfig.defaultWidth)
-  );
+  const ch: string[][] = Array(boardConfig.sectionHeight)
+    .fill([])
+    .map(() => Array(boardConfig.sectionWidth).fill(boardConfig.defaultCh));
+  const color: string[][] = Array(boardConfig.sectionHeight)
+    .fill([])
+    .map(() => Array(boardConfig.sectionWidth).fill(boardConfig.defaultColor));
+  const bgColor: string[][] = Array(boardConfig.sectionHeight)
+    .fill([])
+    .map(() =>
+      Array(boardConfig.sectionWidth).fill(boardConfig.defaultBgColor),
+    );
+  const width: number[][] = Array(boardConfig.sectionHeight)
+    .fill([])
+    .map(() => Array(boardConfig.sectionWidth).fill(boardConfig.defaultWidth));
 
   return { offsetX, offsetY, ch, color, bgColor, width };
 }
@@ -36,9 +38,23 @@ export function applyChange(change: BoardChange, section: SectionData) {
   const xInSection = change.x - section.offsetX;
   const yInSection = change.y - section.offsetY;
 
-  const validX = xInSection >= 0 && xInSection < section.ch[0].length;
+  const row0 = section.ch[0];
+  const validX =
+    xInSection >= 0 && row0 !== undefined && xInSection < row0.length;
   const validY = yInSection >= 0 && yInSection < section.ch.length;
-  if (!validX || !validY) {
+
+  const chRow = section.ch[yInSection];
+  const widthRow = section.width[yInSection];
+  const colorRow = section.color[yInSection];
+  const bgColorRow = section.bgColor[yInSection];
+
+  const hasRowsForY =
+    chRow !== undefined &&
+    widthRow !== undefined &&
+    colorRow !== undefined &&
+    bgColorRow !== undefined;
+
+  if (!validX || !validY || !hasRowsForY) {
     throw new Error("Change does not belong to this section");
   }
 
@@ -46,13 +62,13 @@ export function applyChange(change: BoardChange, section: SectionData) {
     const chWidth = getCharacterWidth(change.ch);
     const xCharacterOffset = xInSection % chWidth;
     const offsetAdjustedXInSection = xInSection - xCharacterOffset;
-    section.ch[yInSection][offsetAdjustedXInSection] = change.ch;
-    section.width[yInSection][offsetAdjustedXInSection] = chWidth;
+    chRow[offsetAdjustedXInSection] = change.ch;
+    widthRow[offsetAdjustedXInSection] = chWidth;
   }
   if (change.color) {
-    section.color[yInSection][xInSection] = change.color;
+    colorRow[xInSection] = change.color;
   }
   if (change.bg_color) {
-    section.bgColor[yInSection][xInSection] = change.bg_color;
+    bgColorRow[xInSection] = change.bg_color;
   }
 }
