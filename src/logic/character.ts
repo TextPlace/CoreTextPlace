@@ -1,6 +1,8 @@
 import { unicodeWidth } from "@std/cli/unicode-width";
 
-const segmenter = new Intl.Segmenter("en", { granularity: "grapheme" });
+const segmenter = /*#__PURE__*/ new Intl.Segmenter("en", {
+  granularity: "grapheme",
+});
 
 export function getCharacterWidth(ch: string): number {
   const segments = [...segmenter.segment(ch)];

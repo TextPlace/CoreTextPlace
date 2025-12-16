@@ -1,6 +1,6 @@
 {
   "name": "@textplace/core",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "The core logic of TextPlace.",
   "license": "MIT",
   "type": "module",
